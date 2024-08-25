@@ -13,7 +13,6 @@ const page = () => {
                 session?.status === 'authenticated' ?
                     <>
                         <span>Welcome {session?.data?.user?.name}</span>
-                        <span>{JSON.stringify(session?.data)}</span>
                     </> :
                     <div className="flex flex-col gap-4">
                         <button onClick={() => handleLogin('google')} className='bg-white text-black p-2 rounded-md'>Sign in with Google</button>
