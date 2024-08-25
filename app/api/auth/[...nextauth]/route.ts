@@ -1,3 +1,5 @@
+import { prisma } from "@/app/libs/db";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
@@ -15,6 +17,33 @@ const handler = NextAuth({
     ],
     pages: {
         signIn: "/auth/login"
+    },
+    callbacks: {
+        session: ({session, token}: any) => {
+            if(session && session.user){
+                session.user.id = token.sub
+            }
+            return session;
+        },
+        async signIn({ user, account }) {
+            const searchedUser = await prisma.user.findFirst({
+                where: {
+                    id: user.id
+                }
+            });
+
+            if (searchedUser)
+                return true;
+            else {
+                await prisma.user.create({
+                    data: {
+                        email: user?.email || "",
+                        provider: account?.provider || "",
+                    }
+                });
+                return true;
+            }
+        }
     }
 });
 
