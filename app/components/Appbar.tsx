@@ -5,8 +5,7 @@ import Link from 'next/link';
 const Appbar = () => {
     const session = useSession();
 
-    const handleLogout = async(event : any) => {
-        event.preventDefault();
+    const handleLogout = async() => {
         await signOut();
     }
 
@@ -23,7 +22,7 @@ const Appbar = () => {
                     session?.status === 'authenticated' &&
                     <>
                         <span className='text-white'>{session?.data?.user?.name}</span>
-                        <button className='bg-white text-black py-1 px-2 rounded-sm' onClick={(e) => handleLogout(e)}>Logout</button>
+                        <button className='bg-white text-black py-1 px-2 rounded-sm' onClick={() => handleLogout()}>Logout</button>
                     </>
                 }
             </div>

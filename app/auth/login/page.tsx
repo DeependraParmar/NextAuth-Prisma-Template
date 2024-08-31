@@ -3,6 +3,7 @@ import { signIn, useSession } from "next-auth/react";
 
 const page = () => {
     const session = useSession();
+    
     const handleLogin = async (provider: string) => {
         await signIn(provider);
     }
