@@ -18,12 +18,6 @@ const handler = NextAuth({
         signIn: "/auth/login"
     },
     callbacks: {
-        session: ({session, token}: any) => {
-            if(session && session.user){
-                session.user.id = token.sub
-            }
-            return session;
-        },
         async signIn({ user, account }) {
             const searchedUser = await prisma.user.findFirst({
                 where: {

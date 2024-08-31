@@ -1,7 +1,7 @@
 'use client';
 import { signIn, useSession } from "next-auth/react";
 
-const page = () => {
+const Page = () => {
     const session = useSession();
     
     const handleLogin = async (provider: string) => {
@@ -24,4 +24,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page;
